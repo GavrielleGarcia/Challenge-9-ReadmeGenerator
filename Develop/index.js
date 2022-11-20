@@ -1,73 +1,73 @@
-// TODO: Include packages needed for this application
-const inquirer = require("inquirer");
+// Include packages needed for this application
+const inquirer = require('inquirer');
 const fs = require('fs');
-const util = require("util");
 const generateMarkdown = require('./utils/generateMarkdown');
 
-
-// TODO: Create an array of questions for user input
+// Create an array of questions for user input
 const questions = [
-    {
-        type: "input",
-        message: "Insert Title",
-        name: "Title"
-    }, {
-        type: "input",
-        message: "Describe your project",
-        name: "Description"
-    
-    }, {
-        type: "input",
-        message: "Explain the user what needs to be installed before running the app",
-        name: "Installation"
-
-    }, {
-        type: "input",
-        message: "Advise the user how to use the app",
-        name: "Usage"
-    
-    }, {
-        type: "input",
-        message: "Who contributed to this project?:",
-        name: "Contributing"
-
-    }, {
-        type: "input",
-        message: "What commands are needed to test this app?",
-        name: "Tests"
-
-    }, {
-        type: "input",
-        message: "Your Name",
-        name: "Questions"
-
-    }, {
-        type: 'input',
-        message: 'Insert your Github username',
-        name: 'Username'
-
-    }, {
-        type: 'input',
-        message: 'Your email',
-        name: 'Email'
-    },
+  {
+    type: 'input',
+    message: 'GitHub Username',
+    name: 'gitHubUser',
+  },
+  {
+    type: 'input',
+    message: 'Your email address',
+    name: 'email',
+  },
+  {
+    type: 'input',
+    message: "Project Title",
+    name: 'title',
+  },
+  {
+    type: 'input',
+    message: 'Description',
+    name: 'description',        
+  },
+  {
+    type: 'input',
+    message: 'What command should be run to install dependencies? ',
+    name: 'installCmd',        
+  },  
+  {
+    type: 'input',
+    message: 'Project Usage',
+    name: 'usageDesc',        
+  },          
+  {
+    type: 'list',
+    message: 'Does your project need a License?',
+    name: 'license',
+    choices: ['MIT', 'Apache 2.0', 'GPL v3', 'ISC', 'None'],
+  },
+  {
+    type: 'list',
+    message: 'Is your project open to contributions?',
+    name: 'contributionDesc', 
+    choices: ['Yes', 'No'],       
+  }, 
+  {
+    type: 'input',
+    message: 'Command needed to Run test ',
+    name: 'testCommand',        
+  }  
 ];
 
-// TODO: Create a function to write README file
+// function to write README file
 function writeToFile(fileName, data) {
     fs.writeFile(fileName, data, (err) =>
-    err? console.log(err) : console.log("New proREADME.md file was successfully created!"));
-};
+    err? console.log(err) : console.log("New MasterReadme.md file was successfully created!"));
+}
 
-// TODO: Create a function to initialize app
+// function to initialize app
 function init() {
-    inquirer.prompt(questions)
-    .then((data) => {
-        console.log(data);
-        const readmeContent = generateMarkdown(data);
-        writeToFile('.Files', readmeContent);
-        console.log(data);
-    });
+  inquirer.prompt(questions)
+  .then((data) => {
+    console.log(data);
+    const readmeContent = generateMarkdown(data);
+    writeToFile('MasterReadme.md', readmeContent);
+  });    
 }
 
 // Function call to initialize app
